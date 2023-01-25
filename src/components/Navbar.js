@@ -1,5 +1,5 @@
 import { Mail, Notifications, Pets } from '@mui/icons-material'
-import { AppBar, Badge, Box, InputBase, styled, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, Badge, Box, InputBase, styled, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 
 const StyledToolbar = styled(Toolbar)({
@@ -15,6 +15,21 @@ const Search = styled("div")(({theme}) => ({
 }))
 
 const Icons = styled(Box)(({theme}) => ({
+  display: "none",
+  gap: "20px",
+  alignItems: "center",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex"
+  }
+}))
+
+const UserBox = styled(Box)(({theme}) => ({
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
+  [theme.breakpoints.up("sm")]: {
+    display: "none"
+  }
 }))
 
 const Navbar = () => {
@@ -31,10 +46,16 @@ const Navbar = () => {
           <Badge badgeContent={4} color="error">
             <Mail />
           </Badge>
-          <Badge>
+          <Badge badgeContent={2} color="error">
             <Notifications />
           </Badge>
+          <Avatar sx={{width: 30, heigth: 10}} src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'/>
         </Icons>
+
+        <UserBox>
+          <Avatar sx={{width: 30, heigth: 10}} src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'/>
+          <Typography variant='span'>VL</Typography>
+        </UserBox>
       </StyledToolbar>
     </AppBar>
   )
