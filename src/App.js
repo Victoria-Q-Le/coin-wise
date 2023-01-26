@@ -1,19 +1,19 @@
-import Sidebar from "./components/Sidebar"
-import Feed from "./components/Feed"
-import Rightbar from "./components/Rightbar"
-import Navbar from "./components/Navbar"
-import { Box, Stack } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import CoinList from "./pages/CoinList";
+import CoinPage from "./pages/CoinPage";
+import Home from "./pages/Home";
+
 function App() {
   return (
-    <Box>
-      <Navbar />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar />
-        <Feed />
-        <Rightbar />
-      </Stack>
-    </Box>
-    
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/coins" element={<CoinList />} />
+        <Route path="/coins/:id" element={<CoinPage />} />
+      </Routes>
+    </div>
   );
 }
 
