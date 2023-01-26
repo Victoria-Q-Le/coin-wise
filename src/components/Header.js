@@ -1,6 +1,7 @@
 import { AppBar, Container, createTheme, MenuItem, Select, styled, ThemeProvider, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { CoinState } from '../CoinContext'
 
 const StyledTypography = styled(Typography)({
   flex: 1,
@@ -12,6 +13,10 @@ const StyledTypography = styled(Typography)({
 const Header = () => {
 
   const navigate = useNavigate()
+
+  const {currency, setCurrency} = CoinState()
+
+  console.log(currency);
 
   const darkTheme = createTheme({
     palette: {
@@ -29,7 +34,7 @@ const Header = () => {
           <Toolbar>
             <StyledTypography onClick={() => navigate("/")} variant="h6"> Coin Wise </StyledTypography>
 
-            <Select variant='outlined' style={{width:100, height:40, marginRight: 15}}>
+            <Select variant='outlined' style={{width:100, height:40, marginRight: 15}} value={currency} onChange={(e) => setCurrency(e.target.value)}>
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"VND"}>VND</MenuItem>
             </Select>
