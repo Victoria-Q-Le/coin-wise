@@ -2,6 +2,7 @@ import { Container, styled, Typography } from '@mui/material'
 import React from 'react'
 import Carousel from './Carousel'
 
+
 const BannerDiv = styled("div")({
     backgroundImage: 'url(./banner2.jpg)'
 })
