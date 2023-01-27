@@ -29,11 +29,12 @@ const Carousel = () => {
     },[currency])
 
     const items = trending.map((coin) => {
+        let profit = coin.price_change_percentage_24h >= 0
 
         return(
             <Link to={`/coins/${coin.id}`}>
                 <img src={coin?.image} alt={coin.name} height ='80' style={{marginBottom: 10}} />
-                <span> {coin.symbol} &nbsp <span></span> </span>
+                <span> {coin.symbol} &nbsp; <span>{profit && "+"} {coin?.price_change_percentage_24h?.toFixed(2)}%</span> </span>
             </Link>
         )
     })
@@ -52,11 +53,12 @@ const Carousel = () => {
             <AliceCarousel 
                 mouseTracking 
                 infinite 
-                autoPlay ={1000}
+                autoPlayInterval ={1000}
                 animationDuration={1500}
                 disableDotsControls
                 disableButtonsControls
                 responsive={responsive}
+                autoPlay
                 items={items}
             />
         </CarouselDiv>
