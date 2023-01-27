@@ -26,7 +26,7 @@ const Carousel = () => {
 
     useEffect(() => {
         fetchTrendingCoins()
-    },[currency])
+    },[])
 
     const items = trending.map((coin) => {
 
@@ -56,8 +56,7 @@ const Carousel = () => {
                 animationDuration={1500}
                 disableDotsControls
                 disableButtonsControls
-                responsive={responsive} //how many items this will display
-                autoPlay
+                responsive={responsive}
                 items={items}
             />
         </CarouselDiv>
