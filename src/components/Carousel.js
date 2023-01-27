@@ -12,6 +12,15 @@ const CarouselDiv = styled("div")(({theme}) => ({
     alignItems: 'center'
 }))
 
+const CarouselItem = styled(Link)({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    cursor: "pointer",
+    textTransform: "uppercase",
+    color: "white"
+})
+
 export function numberWithCommas(x){
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
 }
@@ -36,11 +45,11 @@ const Carousel = () => {
         let profit = coin.price_change_percentage_24h >= 0
 
         return(
-            <Link to={`/coins/${coin.id}`}>
+            <CarouselItem to={`/coins/${coin.id}`} className>
                 <img src={coin?.image} alt={coin.name} height ='80' style={{marginBottom: 10}} />
                 <span> {coin.symbol} &nbsp; <span>{profit && "+"} {coin?.price_change_percentage_24h?.toFixed(2)}%</span> </span>
                 <span style={{fontSize: 22, fontWeight: 500}}> {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}</span>
-            </Link>
+            </CarouselItem>
         )
     })
 
