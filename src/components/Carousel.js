@@ -17,16 +17,16 @@ const Carousel = () => {
 
     const {currency} = CoinState()
 
-    const fetchTrendingCoins = async () => {
-        const {data} = await axios.get(TrendingCoins(currency))
-        setTrending(data)
-    }
-
     console.log(trending);
 
     useEffect(() => {
+        const fetchTrendingCoins = async () => {
+            const {data} = await axios.get(TrendingCoins(currency))
+            setTrending(data)
+        }
+
         fetchTrendingCoins()
-    },[])
+    },[currency])
 
     const items = trending.map((coin) => {
 
