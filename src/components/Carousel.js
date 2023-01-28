@@ -47,7 +47,18 @@ const Carousel = () => {
         return(
             <CarouselItem to={`/coins/${coin.id}`} className>
                 <img src={coin?.image} alt={coin.name} height ='80' style={{marginBottom: 10}} />
-                <span> {coin.symbol} &nbsp; <span>{profit && "+"} {coin?.price_change_percentage_24h?.toFixed(2)}%</span> </span>
+                <span> 
+                    {coin.symbol} 
+                    &nbsp; 
+                    <span  
+                        style={{
+                            fontWeight: 500,
+                            color: profit > 0 ? "rgb(14,203,129)" : "red"
+                        }}
+                    >
+                        {profit && "+"} {coin?.price_change_percentage_24h?.toFixed(2)}%
+                    </span> 
+                </span>
                 <span style={{fontSize: 22, fontWeight: 500}}> {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}</span>
             </CarouselItem>
         )
