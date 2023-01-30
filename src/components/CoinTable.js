@@ -13,7 +13,7 @@ const CoinTable = () => {
   const {currency} = CoinState()
 
 
-  console.log(coins);
+  console.log(coins, search);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -57,19 +57,19 @@ const CoinTable = () => {
           {loading 
             ? (<LinearProgress  style={{backgroundColor: "gold"}}/>) 
             : (<Table>
-            <TableHead style={{backgroundColor: "#EEBC1D"}}>
-                <TableRow>
-                  {["Coin", "Price", "24h Change", "Market Cap"].map((head) => (
-                    <TableCell
-                      style={{color:"black", fontWeight: "700"}}
-                      key={head}
-                      align={head === "Coin" ? "" : "right"}
-                    >
-                      {head}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
+                <TableHead style={{backgroundColor: "#EEBC1D"}}>
+                  <TableRow>
+                    {["Coin", "Price", "24h Change", "Market Cap"].map((head) => (
+                      <TableCell
+                        style={{color:"black", fontWeight: "700"}}
+                        key={head}
+                        align={head === "Coin" ? "justify" : "right"}
+                      >
+                        {head}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
               </Table>)
           }
         </TableContainer>
