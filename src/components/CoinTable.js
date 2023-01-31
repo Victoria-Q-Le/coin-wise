@@ -2,13 +2,16 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {CoinList} from '../config/api'
 import { CoinState } from '../CoinContext'
-import { Container, createTheme, LinearProgress, Table, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Container, createTheme, LinearProgress, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const CoinTable = () => {
 
   const [coins, setCoins] = useState([])
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState("")
+
+  const navigate = useNavigate()
   
   const {currency} = CoinState()
 
@@ -33,6 +36,12 @@ const CoinTable = () => {
       mode: 'dark'
     }
   })
+
+  const handleSearch = () => {
+    return coins.filter((coin) => (
+      coin.name.toLowerCase().includes(search) || coin.symbol.toLowerCase().includes(search)
+    ))
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -70,6 +79,30 @@ const CoinTable = () => {
                     ))}
                   </TableRow>
                 </TableHead>
+
+                <TableBody>
+                  {handleSearch().map((row) => {
+                    const profit = row.price_change_percentage_24h > 0
+                    return (
+                      <TableRow 
+                        onClick={() => navigate(`/coins/${row.id}`)}
+                        key={row.name}
+                      >
+                        <TableCell
+                          component='th'
+                          scope='row'
+                          styles={{display: "flex", gap: 15}}
+                        >
+                          <img  src={row.image} alt={row.name} height="50" style={{marginBottom: 10}} />
+                          <div style={{display: "flex", flexDirection: "column"}}>
+                            <span style={{textTransform: "uppercase", fontSize: 22}}> {row.symbol} </span>
+                            <span style={{color: "darkgrey"}}> {row.name} </span>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
               </Table>)
           }
         </TableContainer>
