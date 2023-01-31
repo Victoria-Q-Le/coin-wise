@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {CoinList} from '../config/api'
 import { CoinState } from '../CoinContext'
+import { Pagination } from '@mui/lab'
 import { Container, createTheme, LinearProgress, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { numberWithCommas } from './Carousel'
@@ -19,6 +20,7 @@ const CoinTable = () => {
   const [coins, setCoins] = useState([])
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState("")
+  const [page, setPage] = useState(1)
 
   const navigate = useNavigate()
   
@@ -89,7 +91,7 @@ const CoinTable = () => {
                 {/* END OF TABLE HEAD */}
 
                 <TableBody>
-                  {handleSearch().map((row) => {
+                  {handleSearch().slice((page -1)*10, (page - 1)*10 + 10).map((row) => {
                     const profit = row.price_change_percentage_24h > 0
                     return (
                       <StyledTableRow 
@@ -131,6 +133,11 @@ const CoinTable = () => {
           }
         </TableContainer>
         {/* END OF COINS TABLE */}
+
+       <Pagination 
+          count={(handleSearch()?.length/10).toFixed(0)}
+          style={{padding: 20, width: "100%", display: "flex", justifyContent: "center"}}
+        />
       </Container>
     </ThemeProvider>
   )
