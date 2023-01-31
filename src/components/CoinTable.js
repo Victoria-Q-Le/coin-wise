@@ -15,6 +15,12 @@ const StyledTableRow = styled(TableRow)({
   }
 })
 
+const StyledPagination = styled(Pagination)({
+  "& .MuiPaginationItem-root": {
+    color: "gold"
+  }
+})
+
 const CoinTable = () => {
 
   const [coins, setCoins] = useState([])
@@ -134,10 +140,15 @@ const CoinTable = () => {
         </TableContainer>
         {/* END OF COINS TABLE */}
 
-       <Pagination 
+       <StyledPagination 
           count={(handleSearch()?.length/10).toFixed(0)}
           style={{padding: 20, width: "100%", display: "flex", justifyContent: "center"}}
+          onChange={(_, value) => {
+            setPage(value)
+            window.scroll(0,450)
+          }}
         />
+
       </Container>
     </ThemeProvider>
   )
