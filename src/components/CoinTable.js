@@ -2,9 +2,17 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {CoinList} from '../config/api'
 import { CoinState } from '../CoinContext'
-import { Container, createTheme, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Container, createTheme, LinearProgress, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { numberWithCommas } from './Carousel'
+
+const StyledTableRow = styled(TableRow)({
+  backgroundColor: "#16171a",
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#131111"
+  }
+})
 
 const CoinTable = () => {
 
@@ -16,8 +24,6 @@ const CoinTable = () => {
   
   const {currency, symbol} = CoinState()
 
-
-  console.log(coins, search);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -80,19 +86,20 @@ const CoinTable = () => {
                     ))}
                   </TableRow>
                 </TableHead>
+                {/* END OF TABLE HEAD */}
 
                 <TableBody>
                   {handleSearch().map((row) => {
                     const profit = row.price_change_percentage_24h > 0
                     return (
-                      <TableRow 
+                      <StyledTableRow 
                         onClick={() => navigate(`/coins/${row.id}`)}
                         key={row.name}
                       >
                         <TableCell
                           component='th'
                           scope='row'
-                          styles={{display: "flex", gap: 15}}
+                          style={{display: "flex", gap: 15}}
                         >
                           <img  src={row.image} alt={row.name} height="50" style={{marginBottom: 10}} />
                           <div style={{display: "flex", flexDirection: "column"}}>
@@ -116,7 +123,7 @@ const CoinTable = () => {
                           {symbol}{" "} {numberWithCommas(row.market_cap.toString().slice(0, -6))} M 
                         </TableCell>
                         {/* END OF MARKET CAP */}
-                      </TableRow>
+                      </StyledTableRow>
                     )
                   })}
                 </TableBody>

@@ -16,8 +16,6 @@ const Header = () => {
 
   const {currency, setCurrency} = CoinState()
 
-  console.log(currency);
-
   const darkTheme = createTheme({
     palette: {
       primary: {
