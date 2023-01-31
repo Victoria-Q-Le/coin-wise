@@ -110,6 +110,12 @@ const CoinTable = () => {
                         <TableCell align='right' style={{ color: profit > 0 ? "rgb(14,203,129)" : "red", fontWeight: 500}}>
                           {profit && "+"} {row.price_change_percentage_24h.toFixed(2)}%
                         </TableCell>
+                        {/* END OF 24H CHANGE */}
+
+                        <TableCell align='right'> 
+                          {symbol}{" "} {numberWithCommas(row.market_cap.toString().slice(0, -6))} M 
+                        </TableCell>
+                        {/* END OF MARKET CAP */}
                       </TableRow>
                     )
                   })}
