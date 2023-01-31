@@ -15,9 +15,17 @@ const DivContainer = styled("div")(({theme}) => ({
     }
 }))
 
-const DivSideBar = styled("div")({
-    
-})
+const DivSideBar = styled("div")(({theme})=> ({
+    width: "30%",
+    [theme.breakpoints.down("md")]:{
+        width: "100%"
+    },
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 25,
+    borderRight: "2px solid grey"
+}))
 
 
 const CoinPage = () => {
@@ -43,7 +51,7 @@ const CoinPage = () => {
     return (
         <DivContainer>
             <DivSideBar>
-                This is the side bar
+                <img src={coin.image.large} alt={coin.name} height="200" style={{marginBottom: 20}} />
             </DivSideBar>
             {/* END OF SIDE BAR */}
 
