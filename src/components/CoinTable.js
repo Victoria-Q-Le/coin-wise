@@ -2,8 +2,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {CoinList} from '../config/api'
 import { CoinState } from '../CoinContext'
-import { Container, createTheme, LinearProgress, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Container, createTheme, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { numberWithCommas } from './Carousel'
 
 const CoinTable = () => {
 
@@ -13,7 +14,7 @@ const CoinTable = () => {
 
   const navigate = useNavigate()
   
-  const {currency} = CoinState()
+  const {currency, symbol} = CoinState()
 
 
   console.log(coins, search);
@@ -98,6 +99,16 @@ const CoinTable = () => {
                             <span style={{textTransform: "uppercase", fontSize: 22}}> {row.symbol} </span>
                             <span style={{color: "darkgrey"}}> {row.name} </span>
                           </div>
+                        </TableCell>
+                        {/* END OF NAME AND SYMBOL CELL */}
+
+                        <TableCell align='right'>
+                          {symbol} {" "} {numberWithCommas(row.current_price.toFixed(2))}
+                        </TableCell>
+                        {/* END OF PRICE */}
+
+                        <TableCell align='right' style={{ color: profit > 0 ? "rgb(14,203,129)" : "red", fontWeight: 500}}>
+                          {profit && "+"} {row.price_change_percentage_24h.toFixed(2)}%
                         </TableCell>
                       </TableRow>
                     )
