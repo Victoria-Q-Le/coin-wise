@@ -51,7 +51,7 @@ const CoinPage = () => {
     return (
         <DivContainer>
             <DivSideBar>
-                <img src={coin.image.large} alt={coin.name} height="200" style={{marginBottom: 20}} />
+                <img src={coin?.image.large} alt={coin?.name} height="200" style={{marginBottom: 20}} />
             </DivSideBar>
             {/* END OF SIDE BAR */}
 
