@@ -1,10 +1,11 @@
-import { styled } from '@mui/material'
+import { styled, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {CoinState} from '../CoinContext'
 import CoinInfo from '../components/CoinInfo'
 import { SingleCoin } from '../config/api'
+import parse from 'html-react-parser'
 
 
 const DivContainer = styled("div")(({theme}) => ({
@@ -27,11 +28,21 @@ const DivSideBar = styled("div")(({theme})=> ({
     borderRight: "2px solid grey"
 }))
 
+const HeadingTypography = styled(Typography)({
+    fontWeight: "bold",
+    marginBottom: 20
+})
+
+const DescriptionTypography = styled(Typography)({
+
+})
+
 
 const CoinPage = () => {
     const {id} = useParams() 
     
     const [coin, setCoin] = useState()
+    const [description, setDescription] = useState("")
     
     const {currency, symbol} = CoinState()
 
@@ -39,12 +50,13 @@ const CoinPage = () => {
         const fetchCoin = async () => {
             const {data} = await axios.get(SingleCoin(id))
             setCoin(data)
+            setDescription(data.description.en.split(". ", [1]).toString()) //split the description to shorten the description, then convert it into string to parse later
         }
         fetchCoin()
     },[id])
 
     console.log(coin);
-
+    console.log(typeof(description), description)
     console.log(currency, symbol)
      
 
@@ -52,6 +64,8 @@ const CoinPage = () => {
         <DivContainer>
             <DivSideBar>
                 <img src={coin?.image.large} alt={coin?.name} height="200" style={{marginBottom: 20}} />
+                <HeadingTypography variant='h3'>{coin?.name}</HeadingTypography>
+                <DescriptionTypography variant='subtitle1'> {parse(description)} </DescriptionTypography>
             </DivSideBar>
             {/* END OF SIDE BAR */}
 
