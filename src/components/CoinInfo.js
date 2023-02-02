@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2'
 import {Chart as ChartJS} from 'chart.js/auto' //this to fix an error, chart wont display without this line
 import { CoinState } from '../CoinContext'
 import { HistoricalChart } from '../config/api'
-import {chartDays} from '../config/data'
+import {chartLength} from '../config/data'
 import SelectButton from './SelectButton'
 
 const CoinInfo = ({coin}) => {
@@ -50,6 +50,7 @@ const CoinInfo = ({coin}) => {
     }))
 
     console.log(ChartJS)
+    console.log(days)
 
   return (
    <ThemeProvider theme={darkTheme}>
@@ -86,13 +87,13 @@ const CoinInfo = ({coin}) => {
             />
 
                 <div style={{display: "flex", marginTop: 20, justifyContent: "space-around", width: "100%"}}>
-                    {chartDays.map(day => (
+                    {chartLength.map(option => (
                         <SelectButton 
-                            key={day.value} 
-                            onCLick={() => setDays(day.value)}
-                            selected={day.value === days}
+                            key={option.value} 
+                            onClick={() => setDays(option.value)}
+                            selected={option.value === days}
                         >
-                            {day.label}
+                            {option.label}
                         </SelectButton>
                     ))}
                 </div>

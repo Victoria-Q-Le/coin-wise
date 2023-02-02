@@ -1,4 +1,4 @@
-export const chartDays = [
+export const chartLength = [
     {
         label: "24 Hours",
         value: 1

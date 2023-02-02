@@ -1,11 +1,11 @@
-import { styled } from '@mui/material'
+import { Button, styled } from '@mui/material'
 import React from 'react'
 
 
 
-const SelectButton = ({children, selected, onCLick}) => {
+const SelectButton = ({children, selected, onClick}) => {
     
-  const SelectButtonSpan = styled("span")(({theme}) => ({
+  const SelectButtonSpan = styled(Button)({
     border: "1px solid gold",
     borderRadius: 5,
     padding: 10,
@@ -13,17 +13,17 @@ const SelectButton = ({children, selected, onCLick}) => {
     paddingRight: 20,
     cursor: "pointer",
     backgroundColor: selected ? "gold" : "",
-    colors: selected ? "black" : "",
+    color: selected ? "black" : "",
     fontWeight: selected ? 700 : 500,
     width: "22%",
     "&:hover": {
       backgroundColor: "gold",
-      colors: "black"
+      color: "black"
     }
-  }))
+  })
 
   return (
-    <SelectButtonSpan>
+    <SelectButtonSpan onClick={onClick}>
       {children}
     </SelectButtonSpan> 
   )
