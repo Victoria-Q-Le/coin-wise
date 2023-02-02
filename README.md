@@ -11,14 +11,14 @@ This app is a full stack app using React and MUI for front end, and Firebase at 
 ### Home Page 
 
 The Home page contains 2 main sections: 
-    - Banner: with an autoplay carousel that display 10 most popular crypto currencies including their prices, symbol as well as their changes in the past 24 hours. 
-    - Coin table: provides information for 100 different crypto currencies. Also comes with a search box so user can easily look up for any currency the want. 
+- Banner: with an autoplay carousel that display 10 most popular crypto currencies including their prices, symbol as well as their changes in the past 24 hours. 
+- Coin table: provides information for 100 different crypto currencies. Also comes with a search box so user can easily look up for any currency the want. 
 
 ### Coin page
 
 Once click on any currency, users will be directed to the coin page of that specific coin. In this page users can find useful insights regarding the coin such as:
-    - Coin information 
-    - Chart that reflects the price changes of that coin during selected time frame 
+- Coin information 
+- Chart that reflects the price changes of that coin during selected time frame 
 
 ### `npm run build`
 
