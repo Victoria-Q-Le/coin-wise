@@ -2,8 +2,11 @@ import { CircularProgress, createTheme, styled, ThemeProvider } from '@mui/mater
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
+import {Chart as ChartJS} from 'chart.js/auto' //this to fix an error, chart wont display without this line
 import { CoinState } from '../CoinContext'
 import { HistoricalChart } from '../config/api'
+import {chartDays} from '../config/data'
+import SelectButton from './SelectButton'
 
 const CoinInfo = ({coin}) => {
 
@@ -16,6 +19,7 @@ const CoinInfo = ({coin}) => {
         const fetchHistoricData = async() => {
             const {data} = await axios.get(HistoricalChart(coin.id, days, currency))
             setHistoricData(data.prices)
+            console.log(data.prices);
         }
         fetchHistoricData()
     },[days, currency, coin.id])
@@ -45,15 +49,53 @@ const CoinInfo = ({coin}) => {
         }
     }))
 
+    console.log(ChartJS)
+
   return (
    <ThemeProvider theme={darkTheme}>
     <DivContainer>
         {!historicData 
             ? (<CircularProgress style={{color: "gold"}} size={250} thickness={1} />)
             : <>
-                 
-                This is the price chart
+                <Line
+                    data={{
+                        labels: historicData.map((coin) => {
+                        let date = new Date(coin[0]);
+                        let time =
+                            date.getHours() > 12
+                            ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                            : `${date.getHours()}:${date.getMinutes()} AM`;
+                        return days === 1 ? time : date.toLocaleDateString();
+                        }),
 
+                        datasets: [
+                        {
+                            data: historicData.map((coin) => coin[1]),
+                            label: `Price ( Past ${days} Days ) in ${currency}`,
+                            borderColor: "#EEBC1D",
+                        },
+                        ],
+                    }}
+                    options={{
+                        elements: {
+                        point: {
+                            radius: 1,
+                        },
+                        },
+                    }}
+            />
+
+                <div style={{display: "flex", marginTop: 20, justifyContent: "space-around", width: "100%"}}>
+                    {chartDays.map(day => (
+                        <SelectButton 
+                            key={day.value} 
+                            onCLick={() => setDays(day.value)}
+                            selected={day.value === days}
+                        >
+                            {day.label}
+                        </SelectButton>
+                    ))}
+                </div>
             </>
         }
     </DivContainer>
