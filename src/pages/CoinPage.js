@@ -86,29 +86,31 @@ const CoinPage = () => {
                 <img src={coin?.image.large} alt={coin?.name} height="200" style={{marginBottom: 20}} />
                 <HeadingTypography variant='h3'>{coin?.name}</HeadingTypography>
                 <DescriptionTypography variant='subtitle1'> {parse(description)} </DescriptionTypography>
+
+                <DivMarketData>
+                    <span style={{display: "flex"}}>
+                        <HeadingTypography variant='h5'> Rank: </HeadingTypography>
+                        &nbsp; &nbsp;
+                        <Typography variant='h5'>{coin?.market_cap_rank}</Typography>
+                    </span>
+
+                    <span style={{display: "flex"}}>
+                        <HeadingTypography variant='h5'> Current Price:  </HeadingTypography>
+                        &nbsp; &nbsp;
+                        <Typography variant='h5'>{symbol}{" "}{numberWithCommas(coin?.market_data.current_price[currency.toLowerCase()])} </Typography>
+                    </span>
+
+                    <span style={{display: "flex"}}>
+                        <HeadingTypography variant='h5'> Market Cap: </HeadingTypography>
+                        &nbsp; &nbsp;
+                        <Typography variant='h5'>{symbol}{" "}{numberWithCommas(coin?.market_data.market_cap[currency.toLowerCase()].toString().slice(0,-6))} M</Typography>
+                    </span>
+                </DivMarketData>
+
             </DivSideBar>
             {/* END OF SIDE BAR */}
 
-            <DivMarketData>
-                <span style={{display: "flex"}}>
-                    <HeadingTypography variant='h5'> Rank: </HeadingTypography>
-                    &nbsp; &nbsp;
-                    <Typography variant='h5'>{coin?.market_cap_rank}</Typography>
-                </span>
-
-                <span style={{display: "flex"}}>
-                    <HeadingTypography variant='h5'> Current Price:  </HeadingTypography>
-                    &nbsp; &nbsp;
-                    <Typography variant='h5'>{symbol}{" "}{numberWithCommas(coin?.market_data.current_price[currency.toLowerCase()])} </Typography>
-                </span>
-
-                <span style={{display: "flex"}}>
-                    <HeadingTypography variant='h5'> Market Cap: </HeadingTypography>
-                    &nbsp; &nbsp;
-                    <Typography variant='h5'>{symbol}{" "}{numberWithCommas(coin?.market_data.market_cap[currency.toLowerCase()].toString().slice(0,-6))} M</Typography>
-                </span>
-            </DivMarketData>
-
+            
             <CoinInfo coin={coin}/>
         </DivContainer>
     )
