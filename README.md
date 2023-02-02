@@ -4,7 +4,7 @@ The site is live at [Coin Wise](https://coin-wise.netlify.app/).
 
 ## What is it? 
 
-This app is a full stack app using React and MUI for front end, and Firebase at backend server. The app features many useful dependencies to help user gather information regarding their interested crypto currencies such as the market cap, price and price fluctuation in selected time frame
+This app is a full stack app using React and MUI for front end, and Firebase at backend server. The app features many useful dependencies to help user gather information regarding their interested crypto currencies such as the market cap, price and price fluctuation in selected time frame. Coin information was obtained from [CoinGecko API](https://www.coingecko.com/)
 
 
 
@@ -20,52 +20,14 @@ Once click on any currency, users will be directed to the coin page of that spec
 - Coin information 
 - Chart that reflects the price changes of that coin during selected time frame 
 
-### `npm run build`
+### Challenges 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- This app was created using React 18 and MUI 5 was used to style the app. MUI 5 is the only version that sully supports React 18, but it also comes with some major changes when campared to previous version. Some of the biggest changes in v5 is the replacement of JSS for Emotion and the deprecation of useStyle. By default v5 uses Emotion as a styling engine, however I also used styled from mui/material/styles to customize the components that I used in this app. More can be learn [here](https://mui.com/material-ui/guides/interoperability/#change-the-default-styled-engine)
+- The second challenge I faced when built this app is that the chart didn't show on my coin page after I set up the datasets and other required props. I ran into an error says one of the props is not registered. Luckily was able to find the solution for my error [here](https://www.youtube.com/watch?v=RF57yDglDfE)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Dependecies and Credits 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [MUI](https://mui.com/)
+- [React Router Dom](https://reactrouter.com/en/main/start/overview). Useful tutorial [here](https://www.youtube.com/watch?v=Ul3y1LXxzdU&t=2037s)
+- [axios](https://www.npmjs.com/package/axios)
+- [chartjs2](https://react-chartjs-2.js.org/)
