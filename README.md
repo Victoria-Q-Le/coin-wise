@@ -2,22 +2,23 @@
 
 The site is live at [Coin Wise](https://coin-wise.netlify.app/).
 
-## Featured!
+## What is it? 
+
+This app is a full stack app using React and MUI for front end, and Firebase at backend server. The app features many useful dependencies to help user gather information regarding their interested crypto currencies such as the market cap, price and price fluctuation in selected time frame
 
 
 
-### `npm start`
+### Home Page 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The Home page contains 2 main sections: 
+    - Banner: with an autoplay carousel that display 10 most popular crypto currencies including their prices, symbol as well as their changes in the past 24 hours. 
+    - Coin table: provides information for 100 different crypto currencies. Also comes with a search box so user can easily look up for any currency the want. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Coin page
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Once click on any currency, users will be directed to the coin page of that specific coin. In this page users can find useful insights regarding the coin such as:
+    - Coin information 
+    - Chart that reflects the price changes of that coin during selected time frame 
 
 ### `npm run build`
 
