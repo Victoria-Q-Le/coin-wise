@@ -1,6 +1,4 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import {CoinList} from '../config/api'
+import React, {useEffect, useState } from 'react'
 import { CoinState } from '../CoinContext'
 import { Pagination } from '@mui/lab'
 import { Container, createTheme, LinearProgress, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
@@ -22,26 +20,18 @@ const StyledPagination = styled(Pagination)({
 })
 
 const CoinTable = () => {
-
-  const [coins, setCoins] = useState([])
-  const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState("")
   const [page, setPage] = useState(1)
 
   const navigate = useNavigate()
   
-  const {currency, symbol} = CoinState()
-
+  const {currency, symbol, coins, loading, fetchCoins} = CoinState()
 
   useEffect(() => {
-    const fetchCoins = async () => {
-      setLoading(true)
-      const {data} = await axios.get(CoinList(currency))
-      setCoins(data)
-      setLoading(false)
-    }
-    fetchCoins()
+    fetchCoins();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency])
+
 
   const darkTheme = createTheme({
     palette: {

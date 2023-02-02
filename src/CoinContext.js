@@ -1,4 +1,6 @@
+import axios from 'axios'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { CoinList } from './config/api'
 
 const Coin = createContext()
 
@@ -6,6 +8,16 @@ const CoinContext = ({children}) => {
 
     const [currency, setCurrency] = useState("USD")
     const [symbol, setSymbol] = useState("$")
+    const [coins, setCoins] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    const fetchCoins = async () => {
+        setLoading(true)
+        const {data} = await axios.get(CoinList(currency))
+        setCoins(data)
+        setLoading(false)
+      }
+
 
     useEffect(() => {
         if (currency === "USD") setSymbol("$")
@@ -13,7 +25,7 @@ const CoinContext = ({children}) => {
     }, [currency])
 
     return (
-        <Coin.Provider value={{currency, symbol, setCurrency}}>
+        <Coin.Provider value={{currency, symbol, setCurrency, coins, loading, fetchCoins}}>
             {children}
         </Coin.Provider>
     )
