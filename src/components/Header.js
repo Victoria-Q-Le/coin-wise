@@ -2,6 +2,7 @@ import { AppBar, Container, createTheme, MenuItem, Select, styled, ThemeProvider
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CoinState } from '../CoinContext'
+import AuthModal from './Authentication/AuthModal'
 
 const StyledTypography = styled(Typography)({
   flex: 1,
@@ -36,6 +37,9 @@ const Header = () => {
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"VND"}>VND</MenuItem>
             </Select>
+            {/* END OF CURRENCY SELECT */}
+
+            <AuthModal />
           </Toolbar>
         </Container>
       </AppBar>
