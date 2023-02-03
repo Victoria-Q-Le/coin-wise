@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import { AppBar, Tab, Tabs, styled } from '@mui/material';
-import { TabPanel } from '@mui/lab';
 import Signup from '../Authentication/Signup'
 import Login from '../Authentication/Login'
 
@@ -58,8 +56,8 @@ export default function AuthModal() {
               <Tab label="Sign Up" value={1}/>
             </Tabs>
            </AppBar>
-            {value === 0 && <Login/> }
-            {value === 1 && <Signup/> }
+            {value === 0 && <Login handleClose={handleClose}/> }
+            {value === 1 && <Signup handleClose={handleClose}/> }
            
           </PaperDiv>
         </Fade>

@@ -11,6 +11,11 @@ const CoinContext = ({children}) => {
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState(null)
+    const [alert, setAlert] = useState({
+        open: false,
+        message: "",
+        type: "success"
+    })
 
     const fetchCoins = async () => {
         setLoading(true)
@@ -26,7 +31,7 @@ const CoinContext = ({children}) => {
     }, [currency])
 
     return (
-        <Coin.Provider value={{currency, symbol, setCurrency, coins, loading, fetchCoins}}>
+        <Coin.Provider value={{currency, symbol, setCurrency, coins, loading, fetchCoins, alert, setAlert}}>
             {children}
         </Coin.Provider>
     )
