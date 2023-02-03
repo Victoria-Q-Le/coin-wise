@@ -4,31 +4,34 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
-import { AppBar, Tab, Tabs } from '@mui/material';
+import { AppBar, Tab, Tabs, styled } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 import Signup from '../Authentication/Signup'
 import Login from '../Authentication/Login'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+const PaperDiv = styled("div")(({theme}) => ({
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+  backgroundColor: theme.palette.background.paper,
+  color: "white",
+  borderRadius: 10
+}))
+
+const StyledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+})
 
 export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleChange = (newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+
+  console.log(value)
 
   return (
     <div>
@@ -36,8 +39,8 @@ export default function AuthModal() {
         variant='contained' 
         onClick={handleOpen}
         style={{width: 85, height: 40, backgroundColor: "#eebc1d"}}>Login</Button>
-      <Modal
-        aria-labelledby="transition-modal-title"
+      <StyledModal
+        aria-labelledby="transition-StyledModal-title"
         aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
@@ -48,18 +51,19 @@ export default function AuthModal() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <PaperDiv>
            <AppBar position='static' style={{backgroundColor: "transparent", color: "white"}}>
             <Tabs value={value} variant="fullWidth" style={{borderRadius: 10}} onChange={handleChange}>
-              <Tab label="Login"></Tab>
-              <Tab label="Sign Up"></Tab>
+              <Tab label="Login" value={0}/>
+              <Tab label="Sign Up" value={1}/>
             </Tabs>
            </AppBar>
-           {value === 0 && <Login/>}
-           {value === 1 && <Signup/>}
-          </Box>
+            {value === 0 && <Login/> }
+            {value === 1 && <Signup/> }
+           
+          </PaperDiv>
         </Fade>
-      </Modal>
+      </StyledModal>
     </div>
   );
 }
