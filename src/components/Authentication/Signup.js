@@ -1,5 +1,9 @@
 import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
+import { CoinState } from '../../CoinContext'
+
+
+
 
 const Signup = ({handleClose}) => {
 
@@ -7,8 +11,23 @@ const Signup = ({handleClose}) => {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  const handleSubmit = () => {
-   
+  const {setAlert} = CoinState()
+
+  const handleSubmit = async () => {
+   if(password !== confirmPassword){
+      setAlert({
+        open: true,
+        message: "Passwords do not match",
+        type: 'error'
+      })
+      return
+   }
+   try {
+    console.log(password, email);
+    handleClose()
+   } catch (error) {
+    console.log("this line cant run")
+   }
   }
 
   return (
