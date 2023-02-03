@@ -4,7 +4,10 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { AppBar, Tab, Tabs } from '@mui/material';
+import { TabPanel } from '@mui/lab';
+import Signup from '../Authentication/Signup'
+import Login from '../Authentication/Login'
 
 const style = {
   position: 'absolute',
@@ -20,15 +23,19 @@ const style = {
 
 export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState(0)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleChange = (newValue) => {
+    setValue(newValue)
+  }
 
   return (
     <div>
       <Button 
         variant='contained' 
         onClick={handleOpen}
-        style={{width: 85, marginLeft: 15, backgroundColor: "#eebc1d"}}>Login</Button>
+        style={{width: 85, height: 40, backgroundColor: "#eebc1d"}}>Login</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -42,12 +49,14 @@ export default function AuthModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+           <AppBar position='static' style={{backgroundColor: "transparent", color: "white"}}>
+            <Tabs value={value} variant="fullWidth" style={{borderRadius: 10}} onChange={handleChange}>
+              <Tab label="Login"></Tab>
+              <Tab label="Sign Up"></Tab>
+            </Tabs>
+           </AppBar>
+           {value === 0 && <Login/>}
+           {value === 1 && <Signup/>}
           </Box>
         </Fade>
       </Modal>
