@@ -1,6 +1,8 @@
 import { Box, Button, TextField } from '@mui/material'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
 import { CoinState } from '../../CoinContext'
+import { auth } from '../../config/firebase'
 
 
 
@@ -24,6 +26,8 @@ const Signup = ({handleClose}) => {
    }
    try {
     console.log(password, email);
+    const result = await createUserWithEmailAndPassword(auth, email, password)
+    setAlert({open: true, message: `Sign Up Successful. Welcome ${email}`})
     handleClose()
    } catch (error) {
     console.log("this line cant run")
