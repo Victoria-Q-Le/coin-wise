@@ -1,23 +1,17 @@
-import {initializeApp} from "firebase/app"
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getFirestore } from 'firebase/firestore/lite'
+import { initializeApp } from "firebase/app";
+import {getAuth} from 'firebase/auth'
 
-
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAV-wbQqqJuRQLEIYH85Y7-qNYLi66--iM",
-    authDomain: "coin-wise.firebaseapp.com",
-    projectId: "coin-wise",
-    storageBucket: "coin-wise.appspot.com",
-    messagingSenderId: "553279337498",
-    appId: "1:553279337498:web:b97788e14eba5f82f74da3"
+  apiKey: "AIzaSyCV6_t7nHjI2o1bTWJ1DhKkEVir_TFnn2g",
+  authDomain: "coin-wise-90574.firebaseapp.com",
+  projectId: "coin-wise-90574",
+  storageBucket: "coin-wise-90574.appspot.com",
+  messagingSenderId: "24885451140",
+  appId: "1:24885451140:web:a13251a503521799c265d1"
 };
 
-const app = initializeApp(firebaseConfig)
-
-
-
-const provider = new GoogleAuthProvider()
-
-export const db = getFirestore(app)
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app)

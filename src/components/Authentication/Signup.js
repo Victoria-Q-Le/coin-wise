@@ -6,7 +6,6 @@ import { auth } from '../../config/firebase'
 
 
 
-
 const Signup = ({handleClose}) => {
 
   const [email, setEmail] = useState("")
@@ -27,7 +26,7 @@ const Signup = ({handleClose}) => {
    try {
     console.log(password, email);
     const result = await createUserWithEmailAndPassword(auth, email, password)
-    setAlert({open: true, message: `Sign Up Successful. Welcome ${email}`})
+    setAlert({open: true, message: `Sign Up Successful. Welcome ${result.user.email}`})
     handleClose()
    } catch (error) {
     console.log("this line cant run")
