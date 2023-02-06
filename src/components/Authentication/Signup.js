@@ -26,10 +26,10 @@ const Signup = ({handleClose}) => {
    try {
     console.log(password, email);
     const result = await createUserWithEmailAndPassword(auth, email, password)
-    setAlert({open: true, message: `Sign Up Successful. Welcome ${result.user.email}`})
+    setAlert({open: true, message: `Sign Up Successful. Welcome ${result.user.email}`, type: "success"})
     handleClose()
    } catch (error) {
-    console.log("this line cant run")
+    setAlert({open: true, message: error.message, type: 'error'})
    }
   }
 

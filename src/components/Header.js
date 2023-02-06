@@ -15,7 +15,7 @@ const Header = () => {
 
   const navigate = useNavigate()
 
-  const {currency, setCurrency} = CoinState()
+  const {currency, setCurrency, user} = CoinState()
 
   const darkTheme = createTheme({
     palette: {
@@ -39,7 +39,7 @@ const Header = () => {
             </Select>
             {/* END OF CURRENCY SELECT */}
 
-            <AuthModal />
+            { user ? "Logout" : <AuthModal />}
           </Toolbar>
         </Container>
       </AppBar>
