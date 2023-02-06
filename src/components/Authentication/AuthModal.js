@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 import { AppBar, Tab, Tabs, styled } from '@mui/material';
 import Signup from '../Authentication/Signup'
 import Login from '../Authentication/Login'
+import { Box } from '@mui/system';
+import GoogleButton from 'react-google-button';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../config/firebase';
 
 const PaperDiv = styled("div")(({theme}) => ({
   width: 400,
@@ -20,6 +24,16 @@ const StyledModal = styled(Modal)({
   justifyContent: "center"
 })
 
+const google = {
+  padding: 24,
+  paddingTop: 0,
+  display: "flex",
+  flexDirection: "column",
+  textAlign: "center",
+  gap: 20,
+  fontSize: 20
+}
+
 export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0)
@@ -29,7 +43,15 @@ export default function AuthModal() {
     setValue(newValue)
   }
 
-  console.log(value)
+  const googleProvider = new GoogleAuthProvider()
+
+  const signInWithGoogle = ( ) => {
+    signInWithPopup(auth, googleProvider)
+      .then(res => {
+        alert(`You have been signed in as ${res.user.displayName}`)
+        handleClose()
+      })
+  }
 
   return (
     <div>
@@ -58,6 +80,11 @@ export default function AuthModal() {
            </AppBar>
             {value === 0 && <Login handleClose={handleClose}/> }
             {value === 1 && <Signup handleClose={handleClose}/> }
+
+            <Box style={google}>
+              <span>OR</span>
+              <Button style={{width: "100%", outline: "none"}} onClick={signInWithGoogle}> Sign In With Google </Button>
+            </Box>
            
           </PaperDiv>
         </Fade>

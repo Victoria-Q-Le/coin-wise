@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
-import { Avatar, styled } from '@mui/material';
+import { Avatar, Button, styled } from '@mui/material';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../config/firebase';
 
 export default function UserSideBar({user}) {
   const [state, setState] = React.useState({
@@ -14,6 +16,12 @@ export default function UserSideBar({user}) {
 
     setState({ ...state, [anchor]: open });
   };
+
+
+  const logout = () => {
+    signOut(auth)
+    toggleDrawer()
+  }
 
   const ContainerDiv = styled("div")({
     width: 350,
@@ -35,10 +43,31 @@ export default function UserSideBar({user}) {
   const profileStyle = {
     flex: 1,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column", 
     alignItems: "center",
     gap: "20px",
     height: "90%"
+  }
+  
+  const logoutButton = {
+    height: "8%",
+    width: "100%",
+    backgroundColor: "#eebc1d",
+    marginTop: 20
+  }
+
+  const watchList = {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "grey",
+    borderRadius: 10,
+    padding: 15, 
+    paddingTop: 10,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap:12,
+    overflowY: "scroll"
   }
 
 
@@ -69,10 +98,26 @@ export default function UserSideBar({user}) {
                 src={user.photoURL}
                 alt={user.displayName || user.email}
               />
-              <span style={{width: "100%", fontSize: 25, textAlign: "center", fontWeight: "bolder", wordWrap: "break-word"}}>
+              <span style={{width: "100%", fontSize: 25, textAlign: "center", fontWeight: "bolder", wordWrap: "break-word", paddingBottom: 10}}>
                 {user.displayName || user.email}
               </span>
             </div>
+            {/* END OF AVATAR STYLING */}
+
+            <div style={watchList}>
+              <span style={{fontSize: 15, textShadow: "0 0 5px black"}}>
+                Watch List
+              </span>
+            </div>
+
+            <Button
+              variant='contained'
+              style={logoutButton}
+              onClick={logout}
+            >
+              Log Out
+            </Button>
+            {/* SIGN OUT BUTTON */}
            </ContainerDiv>
           </Drawer>
         </React.Fragment>
