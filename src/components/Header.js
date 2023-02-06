@@ -40,7 +40,7 @@ const Header = () => {
             </Select>
             {/* END OF CURRENCY SELECT */}
 
-            { user ? <UserSideBar /> : <AuthModal />}
+            { user ? <UserSideBar user={user} /> : <AuthModal />}
           </Toolbar>
         </Container>
       </AppBar>
