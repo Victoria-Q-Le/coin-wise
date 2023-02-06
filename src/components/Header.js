@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CoinState } from '../CoinContext'
 import AuthModal from './Authentication/AuthModal'
+import UserSideBar from './Authentication/UserSideBar'
 
 const StyledTypography = styled(Typography)({
   flex: 1,
@@ -39,7 +40,7 @@ const Header = () => {
             </Select>
             {/* END OF CURRENCY SELECT */}
 
-            { user ? "Logout" : <AuthModal />}
+            { user ? <UserSideBar /> : <AuthModal />}
           </Toolbar>
         </Container>
       </AppBar>
