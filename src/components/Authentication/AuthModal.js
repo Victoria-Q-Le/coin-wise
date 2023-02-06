@@ -7,7 +7,6 @@ import { AppBar, Tab, Tabs, styled } from '@mui/material';
 import Signup from '../Authentication/Signup'
 import Login from '../Authentication/Login'
 import { Box } from '@mui/system';
-import GoogleButton from 'react-google-button';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 
