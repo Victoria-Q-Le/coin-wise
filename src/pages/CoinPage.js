@@ -1,4 +1,4 @@
-import { LinearProgress, styled, Typography } from '@mui/material'
+import { Button, LinearProgress, styled, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -7,6 +7,8 @@ import CoinInfo from '../components/CoinInfo'
 import { SingleCoin } from '../config/api'
 import parse from 'html-react-parser'
 import {numberWithCommas} from "../components/Carousel"
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../config/firebase'
 
 
 const DivContainer = styled("div")(({theme}) => ({
@@ -24,7 +26,8 @@ const DivMarketData = styled("div")(({theme}) => ({
     width: "100%",
     [theme.breakpoints.down("md")]: {
         display: "flex",
-        justifyContent: "space-around"
+        flexDirection: "column",
+        alignItems: "center"
     },
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
@@ -67,7 +70,45 @@ const CoinPage = () => {
     const [coin, setCoin] = useState()
     const [description, setDescription] = useState("")
     
-    const {currency, symbol} = CoinState()
+    const {currency, symbol, user, watchlist, setAlert} = CoinState()
+
+    const inWatchlist = watchlist.includes(coin?.id)
+
+    const addToWatchlist = async() => {
+        const coinRef = doc(db, "watchlist", user.uid)
+        try {
+            await setDoc(coinRef, {coins: watchlist ? [...watchlist, coin.id] : [coin?.id]})
+            setAlert({
+                open: true,
+                message: `${coin.name} has been added to your watch list`,
+                type: 'success'
+            })
+        } catch (error) {
+            setAlert({
+                open: true,
+                message: error.message,
+                type: 'error'
+            })
+        }
+    }
+
+    const removeFromWatchlist = async() => {
+        const coinRef = doc(db, "watchlist", user.uid)
+        try {
+            await setDoc(coinRef, {coins: watchlist.filter((watch) => watch !== coin?.id)}, {merge: "true"}) //filter out any coin that match the coin id to remove it from the watch list and merge the rest of the list together
+            setAlert({
+                open: true,
+                message: `${coin.name} has been has been removed from your watch list`,
+                type: 'success'
+            })
+        } catch (error) {
+            setAlert({
+                open: true,
+                message: error.message,
+                type: 'error'
+            })
+        }
+    }
 
     useEffect(() => {
         const fetchCoin = async () => {
@@ -105,6 +146,17 @@ const CoinPage = () => {
                         &nbsp; &nbsp;
                         <Typography variant='h5'>{symbol}{" "}{numberWithCommas(coin?.market_data.market_cap[currency.toLowerCase()].toString().slice(0,-6))} M</Typography>
                     </span>
+
+                    {user && (
+                        <Button 
+                            variant='outlined'
+                            style={{width: "100%", height: 40, backgroundColor: inWatchlist ? "#ff0000" : "#eebc1d"}}
+                            onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
+                         
+                        >
+                            {inWatchlist ? "Remove from Watch List" : "Add to Watch List"}
+                        </Button>
+                    ) }
                 </DivMarketData>
 
             </DivSideBar>

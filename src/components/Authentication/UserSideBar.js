@@ -3,11 +3,14 @@ import Drawer from '@mui/material/Drawer';
 import { Avatar, Button, styled } from '@mui/material';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
+import { CoinState } from '../../CoinContext';
 
-export default function UserSideBar({user}) {
+export default function UserSideBar() {
   const [state, setState] = React.useState({
     right: false,
   });
+
+  const {watchlist, coins, user } = CoinState()
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -69,6 +72,7 @@ export default function UserSideBar({user}) {
     gap:12,
     overflowY: "scroll"
   }
+  
 
 
   return (
@@ -108,6 +112,16 @@ export default function UserSideBar({user}) {
               <span style={{fontSize: 15, textShadow: "0 0 5px black"}}>
                 Watch List
               </span>
+              {coins.map((coin) => {
+                if (watchlist.includes(coin?.id)){
+                  return (
+                    <div>
+                      <span>{coin?.name}</span>
+                    </div>
+                  )
+                }
+              })}
+
             </div>
 
             <Button
