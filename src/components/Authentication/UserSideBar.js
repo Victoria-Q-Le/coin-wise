@@ -2,15 +2,18 @@ import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
 import { Avatar, Button, styled } from '@mui/material';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../config/firebase';
+import { auth,db } from '../../config/firebase';
 import { CoinState } from '../../CoinContext';
+import {numberWithCommas} from  '../Carousel'
+import {AiFillDelete} from 'react-icons/ai'
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function UserSideBar() {
   const [state, setState] = React.useState({
     right: false,
   });
 
-  const {watchlist, coins, user } = CoinState()
+  const {watchlist, coins, user, symbol, setAlert } = CoinState()
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -20,6 +23,15 @@ export default function UserSideBar() {
     setState({ ...state, [anchor]: open });
   };
 
+  const removeFromWatchlist = async (coin) => {
+    const coinRef = doc(db, "watchlist", user.uid)
+    try {
+      await setDoc(coinRef, {coins: watchlist.filter((wish) => wish !== coin?.id)}, {merge: true})
+      setAlert({open: true, message: `${coin.name} has been removed from watchlist`, type: 'success'})
+    } catch (error) {
+      setAlert({open: true, message: error.message, type: 'error'})
+    }
+  }
 
   const logout = () => {
     signOut(auth)
@@ -72,6 +84,18 @@ export default function UserSideBar() {
     gap:12,
     overflowY: "scroll"
   }
+
+  const watchlistCoin = {
+    padding: 10,
+    borderRadius: 5, 
+    color: "black",
+    width: "100%",
+    display: 'flex',
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#eebc1d",
+    boxShadow: "0 0 3px black"
+  }
   
 
 
@@ -115,8 +139,10 @@ export default function UserSideBar() {
               {coins.map((coin) => {
                 if (watchlist.includes(coin?.id)){
                   return (
-                    <div>
+                    <div style={watchlistCoin} >
                       <span>{coin?.name}</span>
+                      <span style={{display: "flex", gap: 8}}> {symbol} {numberWithCommas(coin?.current_price.toFixed(2))} </span>
+                      <AiFillDelete style={{cursor: "pointer"}} fontSize="16" onClick={() => removeFromWatchlist(coin)} />
                     </div>
                   )
                 }
