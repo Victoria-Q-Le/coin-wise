@@ -23,6 +23,9 @@ Once click on any currency, users will be directed to the coin page of that spec
 - Coin information 
 - Chart that reflects the price changes of that coin during selected time frame 
 
+### Backend/Server
+- After logged in, user can easily customize their watch list by adding/removing their favorite coins 
+
 ### Challenges 
 
 - This app was created using React 18 and MUI 5 was used to style the app. MUI 5 is the only version that sully supports React 18, but it also comes with some major changes when campared to previous version. Some of the biggest changes in v5 is the replacement of JSS for Emotion and the deprecation of useStyle. By default v5 uses Emotion as a styling engine, however I also used styled from mui/material/styles to customize the components that I used in this app. More can be learn [here](https://mui.com/material-ui/guides/interoperability/#change-the-default-styled-engine)
